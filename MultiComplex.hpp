@@ -2,8 +2,10 @@
  * @file MultiComplex.hpp
  * @brief Header-only implementation of multicomplex numbers via recursive template metaprogramming.
  *
- * Multicomplex numbers extend complex numbers to multiple imaginary dimensions and enable
- * high-precision numerical differentiation through the Cauchy-Riemann approach.
+ * Multicomplex numbers extend complex numbers to multiple imaginary dimensions (i₁, i₂, ..., iₙ)
+ * and enable high-precision numerical differentiation through multicomplex Taylor expansion.
+ * The N-th derivative is obtained by extracting the imaginary component Im₁₂...ₙ from
+ * f(x + h·i₁ + ... + h·iₙ) and dividing by hⁿ.
  * This implementation uses template recursion for compile-time optimization.
  */
 

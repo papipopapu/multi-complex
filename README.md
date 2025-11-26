@@ -6,7 +6,7 @@ A header-only C++ library for **multicomplex numbers** implemented via recursive
 
 ## Overview
 
-Multicomplex numbers are a generalization of complex numbers that introduce multiple independent imaginary units. This mathematical structure enables **automatic numerical differentiation** to machine precision through the Cauchy-Riemann approach, avoiding the numerical instabilities inherent in finite difference methods.
+Multicomplex numbers are a generalization of complex numbers that introduce multiple independent imaginary units (i₁, i₂, ..., iₙ). This mathematical structure enables **automatic numerical differentiation** to machine precision, avoiding the numerical instabilities inherent in finite difference methods.
 
 ### Key Features
 
@@ -18,13 +18,19 @@ Multicomplex numbers are a generalization of complex numbers that introduce mult
 
 ### How It Works
 
-To compute the first derivative of a function `f(x)` at point `x₀`:
+The method relies on multicomplex Taylor expansion. For a holomorphic function f, when evaluated at a multicomplex point with N independent imaginary perturbations:
 
-1. Evaluate `f(x₀ + h·i)` where `i` is the imaginary unit and `h` is a small perturbation
-2. The imaginary part of the result equals `f'(x₀) · h`
-3. Divide by `h` to obtain `f'(x₀)` with machine precision
+```
+f(x + h·i₁ + h·i₂ + ... + h·iₙ)
+```
 
-For higher-order derivatives, multicomplex numbers of order N contain N independent imaginary units, enabling N-th order differentiation in a single function evaluation.
+The N-th derivative can be extracted from the imaginary component corresponding to the product i₁·i₂·...·iₙ:
+
+```
+f⁽ⁿ⁾(x) ≈ Im₁₂...ₙ(f(x + h·i₁ + ... + h·iₙ)) / hⁿ
+```
+
+This works because, due to the multinomial expansion and the property that iₖ² = -1, the product i₁·i₂·...·iₙ appears uniquely in the term containing f⁽ⁿ⁾(x), with no contributions from lower or higher derivatives.
 
 ---
 
