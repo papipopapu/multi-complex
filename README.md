@@ -18,19 +18,25 @@ Multicomplex numbers are a generalization of complex numbers that introduce mult
 
 ### How It Works
 
-The method relies on multicomplex Taylor expansion. For a holomorphic function f, when evaluated at a multicomplex point with N independent imaginary perturbations:
+For a holomorphic function f, the Taylor series around a real point x₀ can be written as:
 
 ```
-f(x + h·i₁ + h·i₂ + ... + h·iₙ)
+f(x₀ + h·i₁ + ... + h·iₙ) = Σₖ₌₀^∞ (Σₗ₌₁ⁿ iₗ·h)ᵏ · f⁽ᵏ⁾(x₀)/k!
 ```
 
-The N-th derivative can be extracted from the imaginary component corresponding to the product i₁·i₂·...·iₙ:
+Using the multinomial theorem to expand `(Σₗ₌₁ⁿ iₗ·h)ᵏ`, the n-th derivative is the only term containing `hⁿ·(∏ₗⁿ iₗ)` — this occurs uniquely when k₁ = k₂ = ... = kₙ = 1 in the multinomial expansion.
+
+The function `Im₁...ₙ` retrieves the real component corresponding to x₂ⁿ by successively extracting imaginary parts:
 
 ```
-f⁽ⁿ⁾(x) ≈ Im₁₂...ₙ(f(x + h·i₁ + ... + h·iₙ)) / hⁿ
+Im₁...ₙ(ζₙ) = Im₁(Im₂(...(Imₙ(ζₙ))...))
 ```
 
-This works because, due to the multinomial expansion and the property that iₖ² = -1, the product i₁·i₂·...·iₙ appears uniquely in the term containing f⁽ⁿ⁾(x), with no contributions from lower or higher derivatives.
+Therefore, the n-th order derivative can be computed as:
+
+```
+f⁽ⁿ⁾(x₀) = Im₁...ₙ(f(x₀ + Σₖ₌₁ⁿ h·iₖ)) / hⁿ
+```
 
 ---
 
