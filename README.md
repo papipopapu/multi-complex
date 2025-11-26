@@ -18,25 +18,19 @@ Multicomplex numbers are a generalization of complex numbers that introduce mult
 
 ### How It Works
 
-For a holomorphic function f, the Taylor series around a real point x₀ can be written as:
+For a holomorphic function $f$, the Taylor series around a real point $x_0$ can be written as:
 
-```
-f(x₀ + h·i₁ + ... + h·iₙ) = Σₖ₌₀^∞ (Σₗ₌₁ⁿ iₗ·h)ᵏ · f⁽ᵏ⁾(x₀)/k!
-```
+$$f(x_0 + h \cdot i_1 + \ldots + h \cdot i_n) = \sum_{k=0}^{\infty} \left( \sum_{l=1}^{n} i_l \cdot h \right)^k \frac{f^{(k)}(x_0)}{k!}$$
 
-Using the multinomial theorem to expand `(Σₗ₌₁ⁿ iₗ·h)ᵏ`, the n-th derivative is the only term containing `hⁿ·(∏ₗⁿ iₗ)` — this occurs uniquely when k₁ = k₂ = ... = kₙ = 1 in the multinomial expansion.
+Using the multinomial theorem to expand $\left( \sum_{l=1}^{n} i_l \cdot h \right)^k$, the n-th derivative is the only term containing $h^n \cdot \prod_{l=1}^{n} i_l$ — this occurs uniquely when $k_1 = k_2 = \ldots = k_n = 1$ in the multinomial expansion. If we ignore terms $O(h^{n+2})$, the $i_1 \cdot i_2 \cdot \ldots \cdot i_n$ product uniquely appears in the $(i_1 + \ldots + i_n)^n$ term, so the real coefficient of this imaginary direction depends only on $f^{(n)}(x_0)$.
 
-The function `Im₁...ₙ` retrieves the real component corresponding to x₂ⁿ by successively extracting imaginary parts:
+The function $\text{Im}_{1 \ldots n}$ retrieves the real component corresponding to $x_{2^n}$ by successively extracting imaginary parts:
 
-```
-Im₁...ₙ(ζₙ) = Im₁(Im₂(...(Imₙ(ζₙ))...))
-```
+$$\text{Im}_{1 \ldots n}(\zeta_n) = \text{Im}_1(\text{Im}_2(\ldots(\text{Im}_n(\zeta_n))\ldots))$$
 
-Therefore, the n-th order derivative can be computed as:
+Noting that $\frac{n!}{1! \cdot \ldots \cdot 1!} = n!$, the n-th order derivative can be computed with approximation error $O(h^2)$:
 
-```
-f⁽ⁿ⁾(x₀) = Im₁...ₙ(f(x₀ + Σₖ₌₁ⁿ h·iₖ)) / hⁿ
-```
+$$f^{(n)}(x_0) = \frac{\text{Im}_{1 \ldots n}\left( f\left( x_0 + \sum_{k=1}^{n} h \cdot i_k \right) \right)}{h^n} + O(h^2)$$
 
 ---
 
