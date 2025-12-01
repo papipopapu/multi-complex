@@ -94,13 +94,13 @@ struct MultiComplex {
     // Component access by index (for accessing the 2^N underlying real components)
     T& operator[](int i) {
         int K = N;
-        int bruh = 2<<(K-1);
+        int bruh = 1<<(K-1);
         if (i >= bruh) {
             return z2[i - bruh];
         } else {
             return z1[i];
         }
-    } 
+    }
     T operator[](int i) const {
         int K = N;
         int bruh = 1<<(K-1);
@@ -348,7 +348,7 @@ MultiComplex<N1, T> promote(const MultiComplex<N2, T>& z) {
 }
 template<unsigned N, class T>
 MultiComplex<N, T> promote(const T& val) {
-    MultiComplex<N, T> ret;
+    MultiComplex<N, T> ret{};
     ret[0] = val;
     return ret;
 }
